@@ -11,8 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.time.Instant;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 
 @Service
@@ -81,7 +80,8 @@ public class UserServiceImpl implements UserService {
         Instant now = Instant.now();
         Instant expired = user.getBirthday();
 
-        return (int) Duration.between(expired, now)
-            .get(ChronoUnit.YEARS);
+        return ChronoUnit.YEARS.between(
+            OffsetDateTime.ofInstant(expired, ZoneOffset.UTC),
+            OffsetDateTime.ofInstant(now, ZoneOffset.UTC));
     }
 }

@@ -16,11 +16,11 @@ public interface BookService {
 
     List<Book> findByWriter(String writer);
 
-    List<Book> safeSort(User user, Book... books);
+    List<Book> safeSort(User user, List<Book> books);
 
     List<Book> findAll();
 
-    List<Book> findSortByWriter(Book... books);
+    List<Book> findSortByWriter(List<Book> books);
 
-    List<Book> findSortByTitle(Book... books);
+    List<Book> findSortByTitle(List<Book> books);
 }

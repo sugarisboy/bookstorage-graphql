@@ -44,10 +44,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> safeSort(User user, Book... books) {
+    public List<Book> safeSort(User user, List<Book> books) {
         long age = userService.userAge(user);
 
-        return Arrays.stream(books)
+        return books.stream()
             .filter(book -> book.getAgeLimit() <= age)
             .collect(Collectors.toList());
     }
@@ -58,15 +58,15 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findSortByWriter(Book... books) {
-        return Arrays.stream(books)
+    public List<Book> findSortByWriter(List<Book> books) {
+        return books.stream()
             .sorted(Comparator.comparing(Book::getWriter))
             .collect(Collectors.toList());
     }
 
     @Override
-    public List<Book> findSortByTitle(Book... books) {
-        return Arrays.stream(books)
+    public List<Book> findSortByTitle(List<Book> books) {
+        return books.stream()
             .sorted(Comparator.comparing(Book::getTitle))
             .collect(Collectors.toList());
     }

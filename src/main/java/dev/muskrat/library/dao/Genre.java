@@ -1,15 +1,17 @@
 package dev.muskrat.library.dao;
 
+import lombok.Getter;
+
 public enum  Genre {
 
     CLASSIC("Классика"),
     FANTASTIC("Фантастика"),
     DRAMA("Драма");
 
+    @Getter
+    private String i18n;
 
-    private String name;
-
-    Genre(String name) {
-        this.name = name;
+    Genre(String i18n) {
+        this.i18n = i18n;
     }
 }

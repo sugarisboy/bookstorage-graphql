@@ -1,11 +1,10 @@
 package dev.muskrat.library.dao;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Data
@@ -14,6 +13,7 @@ import java.util.List;
 @Table(name = "books")
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Book {
 
     @Id
@@ -42,4 +42,15 @@ public class Book {
         inverseJoinColumns = @JoinColumn(name="taken_id", referencedColumnName="id")
     )
     private List<TakenBook> users;
+
+    public String toString() {
+        return String.format("%3d %20s %30s %15s %5d %5d",
+            id,
+            writer,
+            title,
+            genre.getI18n(),
+            ageLimit,
+            count
+        );
+    }
 }
