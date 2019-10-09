@@ -1,6 +1,7 @@
 package dev.muskrat.library.menu.commands;
 
 import dev.muskrat.library.dao.Book;
+import dev.muskrat.library.dao.Genre;
 import dev.muskrat.library.dao.User;
 import dev.muskrat.library.exception.BadRequestException;
 import dev.muskrat.library.menu.CommandMenu;
@@ -35,14 +36,8 @@ public class BooksCommand extends CommandMenu {
         if (args.length == 1) {
             print(books);
         } else if (args.length == 4) {
-            String user_id = args[1];
-            if (!user_id.matches("[0-9]+"))
-                throw new BadRequestException("User id is not valid data");
-            Long userId = Long.valueOf(user_id);
-            User user = userRepository.findById(userId).orElseThrow(
-                () -> new BadRequestException("User with id " + user_id + " not found")
-            );
 
+            User user = convertArgIdToUser(args[1]);
             books = bookService.safeSort(user, books);
 
             if (args[2].equalsIgnoreCase("sort")) {
@@ -54,7 +49,40 @@ public class BooksCommand extends CommandMenu {
                     print(books);
                 }
             }
+
+        } else if (args.length == 5 && args[2].equalsIgnoreCase("genre")) {
+
+            User user = convertArgIdToUser(args[3]);
+
+            Genre genre = null;
+            try {
+                genre = Genre.valueOf(args[4].toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw new BadRequestException("Genre is not valid data");
+            }
+
+            List<Book> byGenre = bookService.findByGenre(genre);
+            byGenre = bookService.safeSort(user, byGenre);
+            print(byGenre);
+
+        } else if (args.length == 5 && args[2].equalsIgnoreCase("writer")) {
+
+            User user = convertArgIdToUser(args[3]);
+            String writer = args[4].replace("_", " ");
+            List<Book> byWriter = bookService.findByWriter(writer);
+            byWriter = bookService.safeSort(user, byWriter);
+            print(byWriter);
+
         }
+    }
+
+    private User convertArgIdToUser(String arg) {
+        if (!arg.matches("[0-9]+"))
+            throw new BadRequestException("User id is not valid data");
+        Long userId = Long.valueOf(arg);
+        return userRepository.findById(userId).orElseThrow(
+            () -> new BadRequestException("User with id " + arg + " not found")
+        );
     }
 
     private void print(List<Book> books) {

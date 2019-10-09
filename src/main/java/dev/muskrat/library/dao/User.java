@@ -37,7 +37,7 @@ public class User {
     @Column(name = "birthday")
     private Instant birthday;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name="user_takenbook",
         joinColumns = @JoinColumn(name="user_id", referencedColumnName="id"),
         inverseJoinColumns = @JoinColumn(name="taken_id", referencedColumnName="id")

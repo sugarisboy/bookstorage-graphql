@@ -39,7 +39,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findByWriter(String writer) {
         return bookRepository.findAll().stream()
-            .filter(book -> book.getWriter().contains(writer))
+            .filter(book -> book.getWriter().toLowerCase().contains(writer.toLowerCase()))
             .collect(Collectors.toList());
     }
 

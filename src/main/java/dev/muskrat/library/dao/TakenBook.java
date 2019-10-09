@@ -1,12 +1,12 @@
 package dev.muskrat.library.dao;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 
 @Data
@@ -37,7 +37,16 @@ public class TakenBook {
     @Column(name = "expired")
     private Instant expired;
 
-    @CreatedDate
     @Column(name = "created")
-    private Integer created;
+    private Instant created;
+
+    public String toString() {
+        return String.format("%3d %3d %30s %15s %15s",
+            user.getId(),
+            book.getId(),
+            book.getTitle(),
+            new SimpleDateFormat("dd MMM YYYY").format(Date.from(created)),
+            new SimpleDateFormat("dd MMM YYYY").format(Date.from(expired))
+        );
+    }
 }

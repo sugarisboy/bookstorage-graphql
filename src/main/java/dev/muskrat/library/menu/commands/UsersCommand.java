@@ -1,9 +1,8 @@
 package dev.muskrat.library.menu.commands;
 
 import dev.muskrat.library.menu.CommandMenu;
-import dev.muskrat.library.repository.BookRepository;
+import dev.muskrat.library.repository.TakenBookRepository;
 import dev.muskrat.library.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +12,9 @@ public class UsersCommand extends CommandMenu {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private TakenBookRepository takenBookRepository;
 
     public UsersCommand() {
         super("users");
@@ -28,5 +30,14 @@ public class UsersCommand extends CommandMenu {
             "birthday"
         );
         userRepository.findAll().forEach(System.out::println);
+        System.out.println("___________________________________________________\n");
+        System.out.printf("%4s%4s%30s %15s %15s\n",
+            "usr",
+            "book",
+            "title",
+            "taken",
+            "expired"
+        );
+        takenBookRepository.findAll().forEach(System.out::println);
     }
 }

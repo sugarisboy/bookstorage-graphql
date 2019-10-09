@@ -28,21 +28,7 @@ public class ApplicationMenu {
     }
 
     private void printMenu() {
-        System.out.println("-----[ B O O K   S T O R A G E ]-----");
-        System.out.println();
-        System.out.println("book add <title> <writer> <genre> <age limit> <count>");
-        System.out.println("book delete <book id>");
-        System.out.println("book find genre <user id> <genre>");
-        System.out.println("book find writer <user id> <writer>");
-        System.out.println();
-        System.out.println("user add <first name> <second name> <third name> <day> <month> <year>");
-        System.out.println("user delete <user id>");
-        System.out.println("user addbook <book id>");
-        System.out.println("user takebook <book id>");
-        System.out.println();
-        System.out.println("books <user id> sort writer");
-        System.out.println("books <user id> sort title");
-        System.out.println("users");
+        System.out.println("Приложение запущено. Используйте help для большей информации.");
     }
 
     private boolean command(String line) {
