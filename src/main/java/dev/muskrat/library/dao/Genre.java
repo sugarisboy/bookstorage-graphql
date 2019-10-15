@@ -6,7 +6,10 @@ public enum  Genre {
 
     CLASSIC("Классика"),
     FANTASTIC("Фантастика"),
-    DRAMA("Драма");
+    DRAMA("Драма"),
+    BIOGRAPHY("Биография"),
+    GUIDE("Обучающая лит-ра"),
+    COMICS("Комиксы");
 
     @Getter
     private String i18n;

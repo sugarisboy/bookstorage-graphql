@@ -35,7 +35,7 @@ public class BookCommand extends CommandMenu {
             System.out.println("book add <title> <writer> <genre> <age limit> <count>");
             System.out.println("book delete <book id>");
         } else if (args.length == 3 && args[1].equalsIgnoreCase("delete") ) {
-            Book book = convertArgIdToBook(args[1]);
+            Book book = convertArgIdToBook(args[2]);
             bookService.removeBook(book);
             System.out.println("Книга была удалена.");
         } else if (args.length == 7 && args[1].equalsIgnoreCase("add")) {
