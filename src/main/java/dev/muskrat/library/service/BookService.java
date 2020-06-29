@@ -8,9 +8,11 @@ import java.util.List;
 
 public interface BookService {
 
-    void addBook(Book book);
+    Book addBook(Book book);
 
     void removeBook(Book book);
+
+    Book findById(Long id);
 
     List<Book> findByGenre(Genre genre);
 
@@ -23,4 +25,8 @@ public interface BookService {
     List<Book> findSortByWriter(List<Book> books);
 
     List<Book> findSortByTitle(List<Book> books);
+
+    Boolean deleteBook(Long id);
+
+    Book updateBook(Long id, Book book);
 }

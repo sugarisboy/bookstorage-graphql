@@ -36,6 +36,9 @@ public class Book {
     @Column(name = "count")
     private Integer count;
 
+    @Column
+    private Boolean deleted = false;
+
     @OneToMany
     @JoinTable(name="book_takenbook",
         joinColumns = @JoinColumn(name="book_id", referencedColumnName="id"),

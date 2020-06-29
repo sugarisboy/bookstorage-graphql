@@ -7,9 +7,10 @@ import dev.muskrat.library.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import javax.persistence.EntityNotFoundException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,13 +21,18 @@ public class BookServiceImpl implements BookService {
     private final UserService userService;
 
     @Override
-    public void addBook(Book book) {
-        bookRepository.save(book);
+    public Book addBook(Book book) {
+        return bookRepository.save(book);
     }
 
     @Override
     public void removeBook(Book book) {
         bookRepository.delete(book);
+    }
+
+    @Override
+    public Book findById(Long id) {
+        return bookRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -69,5 +75,34 @@ public class BookServiceImpl implements BookService {
         return books.stream()
             .sorted(Comparator.comparing(Book::getTitle))
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public Boolean deleteBook(Long id) {
+        Optional<Book> optional = bookRepository.findById(id);
+        optional.ifPresent(book -> {
+            book.setDeleted(true);
+            bookRepository.save(book);
+        });
+        return optional.isPresent();
+    }
+
+    @Override
+    public Book updateBook(Long id, Book book) {
+        Book storedBook = bookRepository.findById(id).orElseThrow(
+            () -> new EntityNotFoundException("Book with id not found")
+        );
+
+        if (book.getWriter() != null) {
+            storedBook.setWriter(book.getWriter());
+        }
+        if (book.getTitle() != null) {
+            storedBook.setTitle(book.getTitle());
+        }
+        if (book.getCount() != null) {
+            storedBook.setCount(book.getCount());
+        }
+
+        return bookRepository.save(storedBook);
     }
 }
