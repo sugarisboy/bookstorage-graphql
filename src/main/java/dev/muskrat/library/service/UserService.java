@@ -4,6 +4,8 @@ import dev.muskrat.library.dao.Book;
 import dev.muskrat.library.dao.User;
 import dev.muskrat.library.dto.ReturnBookDTO;
 
+import java.util.List;
+
 public interface UserService {
 
     User register(User user);
@@ -15,4 +17,6 @@ public interface UserService {
     long userAge(User user);
 
     ReturnBookDTO returnBook(Long bookId, Long userId);
+
+    List<User> findAll();
 }

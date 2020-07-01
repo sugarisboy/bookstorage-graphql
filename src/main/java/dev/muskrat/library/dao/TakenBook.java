@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Entity

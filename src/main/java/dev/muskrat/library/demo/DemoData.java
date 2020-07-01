@@ -5,6 +5,8 @@ import dev.muskrat.library.dao.Genre;
 import dev.muskrat.library.dao.User;
 import dev.muskrat.library.repository.BookRepository;
 import dev.muskrat.library.repository.UserRepository;
+import dev.muskrat.library.service.BookService;
+import dev.muskrat.library.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,7 @@ public class DemoData {
 
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
+    private final UserService userService;
 
     @PostConstruct
     public void load() {
@@ -92,6 +95,13 @@ public class DemoData {
         bookRepository.save(book3);
         bookRepository.save(book4);
         bookRepository.save(book5);
+
+        userService.lendBook(firstUser, book4);
+        userService.lendBook(firstUser, book3);
+
+        userService.lendBook(secondUser, book1);
+        userService.lendBook(secondUser, book4);
+        userService.lendBook(secondUser, book5);
 
         System.out.println();
     }

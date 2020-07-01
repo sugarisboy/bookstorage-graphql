@@ -1,15 +1,17 @@
+scalar Instant
+
 schema {
-    query: BookQueries,
-    mutation: BookMutations
+    query: Query
+    mutation: Mutations
 }
 
-type BookQueries {
+type Query {
     books: [Book]
     book(id: ID!): Book
     bookByWriter(writer: String!): [Book]
 }
 
-type BookMutations {
+type Mutations {
     newBook(book: BookInput!): Book
     deleteBook(id: ID!): Boolean
     updateBook(id: ID!, book: BookInput!): Book
@@ -27,4 +29,5 @@ type Book {
     title: String!,
     count: Int!
     ageLimit: Int!
+    users: [User]
 }

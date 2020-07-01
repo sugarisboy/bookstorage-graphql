@@ -1,6 +1,8 @@
 package dev.muskrat.library.dao;
 
 import lombok.*;
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Date;

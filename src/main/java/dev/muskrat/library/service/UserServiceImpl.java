@@ -22,7 +22,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
@@ -92,6 +91,11 @@ public class UserServiceImpl implements UserService {
         return ReturnBookDTO.builder()
             .fine(fine)
             .build();
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     @Override
